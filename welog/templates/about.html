@@ -1,0 +1,70 @@
+{% extends 'basic.html' %}
+
+{% block title %} Welog About {% endblock %}
+{% block css %}
+
+.backborder{
+border:1px solid black;
+margin-top:30px;
+border-radius:10px 10px 10px 10px;
+box-shadow:6px 6px 48px rgba(0,0,0,0.3);
+}
+
+.height-width{
+width:450px;
+padding:20px;
+}
+.heading-color{
+color:rgb(20 21 93 / 98%)
+}
+.line{
+height:1px;
+width:400px;
+background:rgb(20 21 93 / 98%);
+margin-bottom:10px;
+}
+.fadings{
+opacity:0;
+animation:fade-in 1s ease-in forwards;
+animation-delay: 0.2s;
+}
+@keyframes fade-in{
+from {opacity:0; transformY(20px); }
+to {opacity:1; transformY(0);}
+}
+
+{% endblock %}
+
+{% block body %}
+<div class="container backborder height-width fadings">
+    <h1 class="heading-color">About Us</h1>
+    <div class="line"></div>
+    <p>Welog is a blogging web Application allows you to make the blogs, as well as see the blogs of other people, can
+        also comment on them. Allow the users to view their own blogs, edit and delete them with ease.</p>
+    <h3 class="heading-color">Features</h3>
+    <p>
+    <ol>
+        <li>
+            <h4 class="heading-color">Registering</h4>
+            <ul>
+                <li>Allows the users to register themselves on the Welog and their passwords are store efficently,
+                    allowing no
+                    unauthorized access to anyone
+                </li>
+                <li>
+                Only registered can views the blogs and post their blog.
+                </li>
+        </ul>
+        </li>
+    <li>
+        <h4 class="heading-color">Allowing blogs</h4>
+        <ul>
+            <li>Only registered users are allowed to make the blogs and view the blogs of others.</li>
+            <li>The registered and logged in users are also view the blogs they have made and when.</li>
+        </ul>
+    </li>
+
+    </ol>
+    </p>
+</div>
+{% endblock %}

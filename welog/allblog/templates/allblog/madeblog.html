@@ -1,0 +1,96 @@
+{% extends 'allblog/basic.html'%}
+
+{% block title %} Welog MadeBlog {% endblock %}
+
+{% block css %}
+<style>
+/* Container Styling */
+.container {
+    max-width: 700px;
+    background-color: #ffffff;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.heading {
+    color: #054866;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Horizontal Rule */
+.ruler2 {
+    background: #054866;
+    height: 2px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* Input Styling */
+.taking-input,
+textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+.taking-input:focus,
+textarea:focus {
+    border-color: #054866;
+    outline: none;
+}
+
+/* Button Styling */
+.btn-outline-success {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #198754;
+    background-color: white;
+    color: #198754;
+    transition: 0.3s;
+}
+
+.btn-outline-success:hover {
+    background-color: #198754;
+    color: white;
+    transform: scale(1.03);
+}
+
+/* Label Styling */
+label h3 {
+    font-size: 1.1rem;
+    margin-top: 10px;
+    color: #054866;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="heading text-center">Make a Blog</h1>
+    <div class="ruler2"></div>
+    <form action="/allblog/forminput/" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <label><h3>Blog Title</h3></label>
+        <input name="title" required class="taking-input" placeholder="Enter the Blog Title"/>
+
+        <label><h3>Blog Content</h3></label>
+        <textarea name="content" required placeholder="Enter your blog content" rows="6"></textarea>
+
+        <label><h3>Upload a Picture</h3></label>
+        <input name="picture" class="taking-input" type="file" accept="image/*"/>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-outline-success">Upload Blog</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

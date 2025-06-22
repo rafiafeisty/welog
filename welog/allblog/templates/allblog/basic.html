@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        /* Base Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 10px rgba(5, 73, 63, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(5, 73, 63, 0.6); }
+            100% { box-shadow: 0 0 10px rgba(5, 73, 63, 0.3); }
+        }
+
+        /* Global Styles */
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        /* Enhanced Navbar */
+        .navbar {
+            animation: slideUp 0.6s ease-out;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #28a745;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .btn-outline-success {
+            transition: all 0.3s ease;
+            border-width: 2px;
+        }
+
+        .btn-outline-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        /* Main Content Layout */
+        .main {
+            display: flex;
+            flex-direction: row;
+        }
+
+        /* Sidebar Enhancements */
+        .side-bar {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            min-width: 250px;
+        }
+
+        .side-barlink {
+            margin-top: 20px;
+            text-decoration: none;
+            color: #026a5c;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .side-barlink:hover {
+            cursor: pointer;
+            color: #053730;
+            transform: translateX(5px);
+            background: rgba(5, 73, 63, 0.1);
+        }
+
+        .side-bar ul {
+            list-style: none;
+            margin-right: 30px;
+            padding-left: 20px;
+        }
+
+        .side-bar li {
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Ruler Animation */
+        .ruler {
+            width: 2px;
+            min-height: 100%;
+            background: #05493f;
+            position: relative;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        /* Lord Icons Animation */
+        .icons {
+            transition: all 0.3s ease;
+        }
+
+        .icons:hover {
+            transform: scale(1.2);
+        }
+        .card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    background: white;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(5, 73, 63, 0.3);
+}
+
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    color: #05493f;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #333;
+}
+
+.card-footer {
+    background: transparent;
+    border-top: none;
+    text-align: right;
+}
+
+.btn-card {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-card:hover {
+    background-color: #1e7e34;
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    transform: translateY(-2px);
+}
+
+        {% block css %}  {% endblock %}
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'allblog:index'%}">Welog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'allblog:index'%}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'about' %}">About</a>
+                </li>
+            </ul>
+            <button type="button" onclick="window.location.href='{% url 'index' %}'"
+                    class="btn btn-outline-success mx-3">Logout
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div class="main">
+    <div class="side-bar">
+        <ul>
+            <li><a class="side-barlink" onclick="window.location.href='{% url 'allblog:index'%}'">Home</a></li>
+            <li><a class="side-barlink" onclick="window.location.href='{% url 'allblog:madeblog'%}'">Made Blog</a></li>
+            <li><a class="side-barlink" onclick="window.location.href='{% url 'allblog:myblog'%}'">Own Blogs</a></li>
+        </ul>
+    </div>
+    <div class="ruler"></div>
+    <div class="content-area">
+        {% block body %} {% endblock %}
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+{% block js %} {% endblock %}
+<script src="https://cdn.lordicon.com/lordicon.js"></script>
+</body>
+</html>

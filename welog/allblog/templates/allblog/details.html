@@ -1,0 +1,163 @@
+{% extends 'allblog/basic.html'%}
+
+{% block title %} Blog Details {% endblock %}
+{% block css %}
+<style>
+    /* Headings Styling */
+    .main-head {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #054866;
+        border-bottom: 3px solid #d1ecf1;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #037d62;
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #065a4f;
+        border-bottom: 2px solid #cce5df;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+
+    h4 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #054866;
+        margin-bottom: 10px;
+    }
+
+    h5 {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #054866;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .detailing {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: flex-start;
+        margin: 30px;
+    }
+
+    .directions {
+        height: 200px;
+        width: 280px;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .content2 {
+        font-size: 1rem;
+        line-height: 1.6;
+        max-width: 600px;
+        margin-top: 10px;
+        color: #333;
+    }
+
+    .author-info {
+        margin-top: 10px;
+        font-size: 0.95rem;
+        color: #777;
+        font-style: italic;
+    }
+
+    .comment {
+        margin-top: 40px;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
+
+    .comment-input {
+        height: 40px;
+        width: 70%;
+        border-radius: 5px;
+        padding-left: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+
+    .btn-outline-success {
+        margin-left: 10px;
+    }
+
+    /* Comment Display Section */
+    .view-comments {
+        margin-top: 30px;
+    }
+
+    .single-comment {
+        background-color: #fff;
+        border: 1px solid #e1e1e1;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .comment-user {
+        font-weight: bold;
+        color: #054866;
+    }
+
+    .comment-timestamp {
+        font-size: 0.85rem;
+        color: #777;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+
+<h2 class="main-head">Blog Details</h2>
+<div class="container">
+    <h5>{{ title }}</h5>
+    <p class="author-info">Posted by: {{ blog_user.user.username }}</p>
+
+    <div class="detailing">
+        <img src="{{ image }}" class="img-fluid directions" alt="Blog Image">
+        <div class="content2">
+            <h4>Blog Content</h4>
+            <p>{{ content }}</p>
+        </div>
+    </div>
+
+    <div class="comment">
+        <div class="container">
+            <form method="POST" action="/allblog/commentsaving/">
+                {% csrf_token %}
+                <h2>Make a Comment</h2>
+                <input name="comment" placeholder="Write a comment" type="text" class="comment-input" required>
+                <input type="hidden" name="blog_id" value="{{ blog_id }}">
+                <button type="submit" class="btn btn-outline-success">Upload Comment</button>
+            </form>
+        </div>
+
+        <div class="view-comments">
+            <h3 class="mt-4">Comments</h3>
+            {% for comment in comments %}
+            <div class="single-comment">
+                <p><span class="comment-user">{{ comment.user.username }}</span>: {{ comment.content }}</p>
+                <div class="comment-timestamp">Posted on: {{ comment.created_at }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
